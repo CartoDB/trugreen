@@ -43,12 +43,13 @@ class Panel extends Component {
         <div className={this.state.position}>
           <div className={background}>
             <LayerToggle
-              layer={this.props.layers.railaccidents}
+              layer={this.props.layers.stores}
             />
-            <StyleToggle
-              layer={this.props.layers.railaccidents}
-              name='Change Points Style'
-              cartocss={cartocss}
+            <LayerToggle
+              layer={this.props.layers.golf}
+            />
+            <LayerToggle
+              layer={this.props.layers.memorial}
             />
           </div>
         </div>

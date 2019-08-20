@@ -5,6 +5,8 @@ import { setNeighbourhoods } from '../../actions/actions';
 import carto, { filter, source, style, layer  } from '@carto/carto.js';
 import '@carto/airship-style';
 import Formula from '../widgets/Formula'
+import Histogram from '../widgets/Histogram'
+
 
 class BottomBar extends Component {
 
@@ -21,21 +23,61 @@ class BottomBar extends Component {
 
     return (
       <footer className={background} data-name={this.props.name}>
-        <div className="as-container as-container--scrollable">
-          <section className="as-box as-box--large">
-            <Formula
-              title='Total Damage'
-              description='Maximum total damage in USD for accidents in view'
-              round={false}
-              currency={true}
-              locale='es-ES'
-              currencyType='EUR'
-              layer={this.props.layers.railaccidents.source}
-              column='total_damage'
-              operation={carto.operation.MAX}
-            />
-          </section>
-        </div>
+      <div className="as-box as-box--border">
+      <Formula
+        title='Median Income'
+        description='Median income of area in map view'
+        round={true}
+        currency={true}
+        locale='en-US'
+        currencyType='USD'
+        column={'median_income'}
+        layer={this.props.layers.demos.source}
+        operation={carto.operation.AVG}
+      />
+     
+      </div>
+      <div className="as-box as-box--border">
+      <Formula
+        title='Total Single Family Homes'
+        description='Total single family homes in map view'
+        round={true}
+        currency={false}
+        locale='en-US'
+        currencyType='USD'
+        column={'single_family_detached'}
+        layer={this.props.layers.demos.source}
+        operation={carto.operation.SUM}
+      />
+     
+      </div>
+      
+        <div className="as-box as-box--border">
+      <Formula
+        title='Golf Courses'
+        description='Total number of golf courses in map view'
+        round={true}
+        currency={false}
+        locale='en-US'
+        currencyType='USD'
+        column={'cartodb_id'}
+        layer={this.props.layers.golf.source}
+        operation={carto.operation.COUNT}
+      />
+      </div>
+      <div className="as-box as-box--border">
+      <Formula
+          title='Memorial Sites'
+          description='Total number of memorial sites in map view'
+          round={true}
+          currency={false}
+          locale='en-US'
+          currencyType='USD'
+          layer={this.props.layers.memorial.source}
+          column={'cartodb_id'}
+          operation={carto.operation.COUNT}
+      />
+      </div>
       </footer>
     )
   }

@@ -18,10 +18,13 @@ class RightBar extends Component {
       this.state = {
         ...props
       }
+      this.setMins = this.setMins.bind(this);
   }
 
   state = {
-    size: null
+    size: null,
+    data: null,
+    filter: null
   };
 
   componentDidMount() {
@@ -29,17 +32,85 @@ class RightBar extends Component {
     this.setState({size: z})
   }
 
+  setMins(mins) {
+    const filter = new carto.filter.Category('isoline_time', { eq: mins });
+    this.props.layers.stores.source.removeFilter(this.state.filter);
+    this.setState({ filter: filter })
+    this.props.layers.stores.source.addFilter(filter);
+  }
+
   render() {
+
+    this.props.layers.stores.layer.on('featureClicked', e => {
+      this.setState({ data: e.data })
+    });
+
+    const { data } = this.state
+
+    let popUp
+
+    if (!data) { 
+      popUp = <div className="as-m--16">
+      <h1 className="as-title">Click a TruGreen trade area to see more details</h1>
+      </div>
+    } else {
+      const gmaps = `https://maps.google.com/?q=${data.address}, ${data.addresslocality}, ${data.addressregion}, ${data.postalcode}`
+      
+      popUp = <div className="as-m--16">
+        <h1 className="as-title">{data.name}</h1>
+        <h4 className="as-subheader">{data.address}, {data.addresslocality}, {data.addressregion}, {data.postalcode}</h4>
+        <p className="as-body"><b>Phone: </b>{data.phone}</p>
+        <br />
+        <div className="as-button-group" role="group">
+        <a href={gmaps} target='_blank' className="as-btn as-btn--secondary ">Google Maps</a>
+        <a href={data.url} target='_blank' className="as-btn as-btn--secondary ">Branch Website</a>
+        </div>
+        <br />
+        <br />
+        <span className="as-badge as-bg--success">{data.isoline_time} min. Trade Area</span>
+        <br />
+        <br />
+        <h4 className="as-subheader">Trade Area Demographics</h4>
+        <p className="as-body"><b>Total Population:</b> {data.total_pop.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
+        <p className="as-body"><b>Median Income:</b> {data.median_income.toLocaleString('en-US', {maximumFractionDigits: 2, style: 'currency', currency: 'USD'})}</p>
+        <p className="as-body"><b>% Population w/ Income Over $60,000:</b> {data.per_over_60k.toLocaleString('en-US', {maximumFractionDigits: 2})}%</p>
+        <br />
+        <h4 className="as-subheader">Household Data</h4>
+        <p className="as-body"><b>Single Family Homes:</b> {data.single_family_detached.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
+        <p className="as-body"><b>Total Households:</b> {data.household.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
+        <p className="as-body"><b>Median Home Year Built:</b> {data.median_year_built.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
+        <p className="as-body"><b>Family Occupied Households:</b> {data.family_households.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
+        
+        </div>
+    }
+
+    // 'isoline_time', 'address', 'addresslocality', 'addressregion', 'bestrating', 'name', 'postalcode', 'ratingcount', 'ratingvalue', 'telephone', 'type', 'url', 'median_income', 'total_pop', 'single_family_detached', 'median_year_built', 'family_households', 'married_households', 'household', 'per_over_60k'
 
     return (
       <aside className={this.state.size} data-name={this.props.name}>
       <div className="as-m--24">
-      <CategoryVL
-        title='State'
-        description='Total damage for each railroad company in USD'
-      />
-
+      <div className="as-m--16">
+      {/* <Category
+        title='Store Name'
+        categoryLayer={this.props.layers.stores.source}
+        column='name'
+        operation={carto.operation.COUNT}
+    /> */}
+      <div className="as-button-group" role="group">
+        <button class="as-btn as-btn--secondary" onClick={() => { this.setMins(30) }}>
+          <p>30 min.</p>
+        </button>
+        <button class="as-btn as-btn--secondary"  onClick={() => { this.setMins(45) }}>
+          <p>45 min.</p>
+        </button>
+        <button class="as-btn as-btn--secondary"  onClick={() => { this.setMins(60) }}>
+          <p>60 min.</p>
+        </button>
       </div>
+      </div>
+      {popUp}
+      </div>
+    
       </aside>
 
     )

@@ -55,7 +55,7 @@ class Category extends Component {
   }
   _addDataview() {
     this.dataView = new carto.dataview.Category(this.props.categoryLayer, this.props.column, {
-      limit: 10,
+      limit: 5,
       operation: this.props.operation,
       operationColumn: this.props.operationColumn
     });
@@ -111,7 +111,7 @@ class Category extends Component {
     const showApplyButton = selection.length > 0 && !filter;
 
     return (
-      <div className="as-p--16">
+      <div>
       <as-category-widget
         ref={node => { this.widget = node; }}
         heading={title}

@@ -1,5 +1,86 @@
 :root {
-    // --as-color-primary: #FFA630;
-    // --as-color-secondary: #2E5077;
-    // --as-color-complementary: #D7E8BA;
+    --as--color--primary: #00703C !important;
+    --as--color--secondary: #72C572 !important;
+    --as--color--complementary: #666666 !important;
+}
+
+.as-toolbar a {
+    color: #00703C !important;
+} 
+
+.as-toolbar {
+    border-bottom: 1px solid #00703C !important;
+    background-color: #fff !important;
+} 
+
+.as-toolbar__item {
+    border-bottom: 1px solid #00703C !important;
+    background-color: #fff !important;
+} 
+
+.as-sidebar--right {
+    order: 9999;
+    box-shadow: none !important;
+}
+
+.legend-circle {
+    position: relative;
+    min-width: 12px;
+    height: 12px;
+    margin-right: 2px;
+    margin-left: 2px;
+    border-radius: 50%;
+}
+
+.as-display {
+    margin: 0px 0px 4px;
+}
+
+.as-map-footer {
+    border-top: 1px solid #00703C !important;
+}
+
+.as-time-series-widget {
+    width: 100%;
+
+    height: 100% !important;
+    background: #00703C;
+  }
+
+// .as-widget-header__header {
+//     margin-left: 32px !important;
+// }
+.as-widget-selection__selection  {
+    margin-left: 32px !important;
+}
+
+.as-infowindow {
+    min-width: 320px;
+}
+
+.as-legend-color-continuous-polygon {
+    min-width: 150px !important;
+}
+
+.as-legend-color-continuous-polygon--wrapper {
+    min-width: 150px !important;
+}
+
+.as-legend-color-continuous-polygon--labels {
+    min-width: 150px !important;
+}
+.as-legend-color-continuous-polygon--horizontal {
+    min-width: 150px !important;
+}
+
+.as-legend-size-bins-line {
+    min-width: 150px !important;
+}
+
+.as-legend-size-bins-line--horizontal {
+    min-width: 150px !important;
+}
+
+.as-legend-size-bins-line--wrapper {
+    min-width: 150px !important;
 }

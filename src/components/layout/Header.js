@@ -21,17 +21,14 @@ class Header extends Component {
         <HeaderToggle />
       <div className="as-toolbar__group">
         <div className="as-toolbar__item">
-          <Avatar
-            size='l'
-            alt='Isthmus'
-            icon="https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/spaces%2F-LNBHPmcyIcNeWf3W50m%2Favatar.png?generation=1537815172519034&alt=media"
-          />
+        <div className="as-toolbar__item">
+        <img src="https://www.trugreen.com/Content/Images/Navigation/TruGreen_Logo.svg" style={{width: "88px"}} alt="TruGreen" />
+      </div>
         </div>
         <nav className="as-toolbar__actions">
           <ul>
             <HeaderLink name='Home' link='/' />
-            <HeaderLink name='Another Map' link='/page' />
-            <HeaderLink name='Help' link='/help' />
+
           </ul>
         </nav>
       </div>

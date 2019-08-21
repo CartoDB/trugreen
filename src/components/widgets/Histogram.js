@@ -82,7 +82,7 @@ class Histogram extends Component {
 
  onSelectedChanged = ({ detail }) => {
    let { filter } = this.state;
-   if (!detail.length) {
+   if (detail === null) {
      this.props.layer.removeFilter(filter);
      filter = null;
      this.setState({ filter });

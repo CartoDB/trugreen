@@ -6,7 +6,7 @@ export default {
     cartocss: `
     #layer {
         polygon-fill: #a7dcb5;
-        polygon-opacity: 0.4;
+        polygon-opacity: 0.6;
       }
       #layer::outline {
         line-width: 1;

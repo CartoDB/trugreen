@@ -42,6 +42,8 @@ class Panel extends Component {
       <div className="as-map-panels" data-name={this.props.name}>
         <div className={this.state.position}>
           <div className={background}>
+            <p className='as-body'>Use the toggles to turn layers on and off</p>
+            <br />
             <LayerToggle
               layer={this.props.layers.stores}
             />

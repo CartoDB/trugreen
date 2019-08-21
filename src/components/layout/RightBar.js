@@ -78,7 +78,7 @@ class RightBar extends Component {
         <h4 className="as-subheader">Household Data</h4>
         <p className="as-body"><b>Single Family Homes:</b> {data.single_family_detached.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
         <p className="as-body"><b>Total Households:</b> {data.household.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
-        <p className="as-body"><b>Median Home Year Built:</b> {data.median_year_built.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
+        <p className="as-body"><b>Median Home Year Built:</b> {data.median_year_built}</p>
         <p className="as-body"><b>Family Occupied Households:</b> {data.family_households.toLocaleString('en-US', {maximumFractionDigits: 0})}</p>
         
         </div>
@@ -89,13 +89,19 @@ class RightBar extends Component {
     return (
       <aside className={this.state.size} data-name={this.props.name}>
       <div className="as-m--24">
-      <div className="as-m--16">
       {/* <Category
         title='Store Name'
         categoryLayer={this.props.layers.stores.source}
         column='name'
         operation={carto.operation.COUNT}
     /> */}
+      <as-tabs>
+      <div role="tabpanel" data-title="Branch Information">
+
+      <div class="as-container">
+      <section class="as-box as-box--border">
+      <h4 className="as-subheader">Select a drive time trade-area distance to view</h4>
+      <br />
       <div className="as-button-group" role="group">
         <button class="as-btn as-btn--secondary" onClick={() => { this.setMins(30) }}>
           <p>30 min.</p>
@@ -107,10 +113,57 @@ class RightBar extends Component {
           <p>60 min.</p>
         </button>
       </div>
+      </section>
       </div>
       {popUp}
       </div>
-    
+      
+      <div role="tabpanel" data-title="Filters">
+      <div className="as-m--24">
+      <h4 className="as-subheader">Use the filters to select different TruGreen Branch trade areas based on their demographic data</h4>
+      <br />
+      <Category
+        title='State'
+        description='State where a branch is located'
+        categoryLayer={this.props.layers.stores.source}
+        column='addressregion'
+        operation={carto.operation.COUNT}
+      />
+      <Category
+        title='City'
+        description='City where a branch is located'
+        categoryLayer={this.props.layers.stores.source}
+        column='addresslocality'
+        operation={carto.operation.COUNT}
+      />
+      <Histogram
+        title='Median Income'
+        description='Median Income for the trade areas in view'
+        layer={this.props.layers.stores.source}
+        column='median_income'
+        bins={24}
+      />
+      <br />
+      <Histogram
+        title='Single Family Homes'
+        description='Single family homes for the trade areas in view'
+        layer={this.props.layers.stores.source}
+        column='single_family_detached'
+        bins={24}
+      />
+      <br />
+      <Histogram
+        title='Total Households'
+        description='Total households for the trade areas in view'
+        layer={this.props.layers.stores.source}
+        column='household'
+        bins={24}
+      />
+      </div>
+
+      </div>
+      </as-tabs>
+      </div>
       </aside>
 
     )
